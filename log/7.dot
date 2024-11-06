@@ -1,0 +1,23 @@
+digraph G{
+	rankdir=LR;
+	node[shape=rect,style=rounded];
+	id0 [shape=record,label="{ id:0 } | data:57005 | next:5 | prev:1 }"]
+	id1 [shape=record,label="{ id:1 } | data:10 | next:0 | prev:2 }"]
+	id2 [shape=record,label="{ id:2 } | data:20 | next:1 | prev:4 }"]
+	id3 [shape=record,label="{ id:3 } | data:60 | next:4 | prev:5 }"]
+	id4 [shape=record,label="{ id:4 } | data:40 | next:2 | prev:3 }"]
+	id5 [shape=record,label="{ id:5 } | data:50 | next:3 | prev:0 }"]
+	id6 [shape=record,label="{ id:6 } | data:0 | next:-7 | prev:-1 }"]
+	id7 [shape=record,label="{ id:7 } | data:0 | next:-8 | prev:-1 }"]
+	id8 [shape=record,label="{ id:8 } | data:0 | next:-9 | prev:-1 }"]
+	id9 [shape=record,label="{ id:9 } | data:0 | next:-10 | prev:-1 }"]
+	id0 -> id5;
+	id5 -> id3;
+	id3 -> id4;
+	id4 -> id2;
+	id2 -> id1;
+	id1 -> id0;
+	id6 -> id7;
+	id7 -> id8;
+	id8 -> id9;
+	}
