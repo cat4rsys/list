@@ -33,6 +33,8 @@ ListError listCtor(List * list)
 
     DO_LOG_DUMP(list->log, list);
     printf("%p\n", list->log->logFile);
+
+    return LST_NORMAL;
 }
 
 ListError listDtor(List * list)
@@ -41,36 +43,46 @@ ListError listDtor(List * list)
 
     free(list->data);
     free(list->log);
+
+    return LST_NORMAL;
 }
 
+// FIXME: add
 ListError listVerifier(List * list)
 {
     if (!list) return LST_NULL_PTR;
-
     if (!list->data) return LST_NULL_DATA_PTR;
+
+    return LST_NORMAL;
 }
 
 ListError addToListFromTail(ListElem_t newElement, List * list)
 {
+    if (listVerifier(list) != LST_NORMAL) return listVerifier(list);
+
     int free = list->free;
     int nextFree = - (list->data[free].next);
     int tempTail = list->data[0].prev;
 
-    list->data[tempTail].next    = free;
-    list->data[free].next    = 0;
-    list->data[free].element = newElement;
-    list->data[free].prev    = tempTail;
-    list->data[0].prev           = free;
+    list->data[tempTail].next = free;
+    list->data[free].next     = 0;
+    list->data[free].element  = newElement;
+    list->data[free].prev     = tempTail;
+    list->data[0].prev        = free;
 
     list->free = nextFree;
 
     list->actualSize++;
 
     DO_LOG_DUMP(list->log, list);
+
+    return LST_NORMAL;
 }
 
 ListError addToListFromHead(ListElem_t newElement, List * list)
 {
+    if (listVerifier(list) != LST_NORMAL) return listVerifier(list);
+
     int free = list->free;
     int nextFree = - (list->data[free].next);
     int tempHead = list->data[0].next;
@@ -86,10 +98,14 @@ ListError addToListFromHead(ListElem_t newElement, List * list)
     list->actualSize++;
 
     DO_LOG_DUMP(list->log, list);
+
+    return LST_NORMAL;
 }
 
 ListError addToListBefore(int index, ListElem_t newElement, List * list)
 {
+    if (listVerifier(list) != LST_NORMAL) return listVerifier(list);
+
     int free = list->free;
     int nextFree = - (list->data[free].next);
 
@@ -104,10 +120,14 @@ ListError addToListBefore(int index, ListElem_t newElement, List * list)
     list->actualSize++;
 
     DO_LOG_DUMP(list->log, list);
+
+    return LST_NORMAL;
 }
 
 ListError addToListAfter(int index, ListElem_t newElement, List * list)
 {
+    if (listVerifier(list) != LST_NORMAL) return listVerifier(list);
+
     int free = list->free;
     int nextFree = - (list->data[free].next);
 
@@ -122,12 +142,16 @@ ListError addToListAfter(int index, ListElem_t newElement, List * list)
     list->actualSize++;
 
     DO_LOG_DUMP(list->log, list);
+
+    return LST_NORMAL;
 }
 
 
 
 ListError deleteElement(int index, List * list)
 {
+    if (listVerifier(list) != LST_NORMAL) return listVerifier(list);
+
     if (index >= list->capacity) {
         fprintf(stderr, "Index out of range\n");
         return LST_OUT_OF_RANGE;
@@ -148,6 +172,8 @@ ListError deleteElement(int index, List * list)
     list->actualSize--;
 
     DO_LOG_DUMP(list->log, list);
+
+    return LST_NORMAL;
 }
 
 /*void dump(List * list)

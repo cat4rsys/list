@@ -1,7 +1,11 @@
 #ifndef LIST_H
 #define LIST_H
 
-enum ListError {
+#include <stdio.h>
+
+enum ListError
+{
+    LST_NORMAL        = 0,
     LST_NULL_PTR      = 1 << 1,
     LST_NULL_DATA_PTR = 1 << 2,
     LST_NO_ELEMENT    = 1 << 3,
@@ -22,7 +26,7 @@ const ListElem_t poison = 0xDEAD;
 typedef struct
 {
     ListElem_t element;
-    int next;
+    int next; // indexes_t
     int prev;
 } ElementaryPartOfList;
 
@@ -41,6 +45,8 @@ typedef struct
 ListError listCtor(List * list);
 
 ListError listDtor(List * list);
+
+ListError listVerifier(List * list);
 
 ListError addToListFromHead(ListElem_t newElement, List * list);
 
